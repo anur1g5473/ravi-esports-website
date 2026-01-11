@@ -614,6 +614,63 @@
     </button>
 
     <!-- ============================================
+     CHATBOT
+============================================= -->
+<div class="chatbot-container" id="chatbot-container">
+    <!-- Chat Toggle Button -->
+    <button class="chatbot-toggle" id="chatbot-toggle">
+        <i class="fas fa-comments"></i>
+        <span class="chat-notification" id="chat-notification">1</span>
+    </button>
+    
+    <!-- Chat Window -->
+    <div class="chatbot-window" id="chatbot-window">
+        <!-- Chat Header -->
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="chatbot-avatar">🔥</div>
+                <div class="chatbot-header-text">
+                    <h4>RAVI ESPORTS Bot</h4>
+                    <span class="chatbot-status">
+                        <span class="status-dot"></span>
+                        Online
+                    </span>
+                </div>
+            </div>
+            <button class="chatbot-close" id="chatbot-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div class="chatbot-messages" id="chatbot-messages">
+            <!-- Messages will be added here -->
+        </div>
+        
+        <!-- Quick Replies -->
+        <div class="chatbot-quick-replies" id="quick-replies">
+            <button class="quick-reply" data-message="Tell me about RAVI ESPORTS">About Guild</button>
+            <button class="quick-reply" data-message="How to join the guild?">How to Join</button>
+            <button class="quick-reply" data-message="Best Free Fire characters">Best Characters</button>
+            <button class="quick-reply" data-message="Free Fire tips">Game Tips</button>
+        </div>
+        
+        <!-- Chat Input -->
+        <div class="chatbot-input-container">
+            <input 
+                type="text" 
+                class="chatbot-input" 
+                id="chatbot-input" 
+                placeholder="Ask me anything..."
+                autocomplete="off"
+            >
+            <button class="chatbot-send" id="chatbot-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+    <!-- ============================================
          SCRIPTS
     ============================================= -->
     <!-- Supabase JS Library -->
@@ -621,6 +678,8 @@
     
     <!-- Supabase Configuration -->
     <script src="./config/supabase.js"></script>
+    <!-- Chatbot Script -->
+<script src="./chatbot.js"></script>
     
     <!-- Main JavaScript -->
     <script src="./script.js"></script>
