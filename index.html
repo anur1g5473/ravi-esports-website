@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RAVI ESPORTS - Born To Rush. Built To Win. Official Free Fire Esports Guild.">
+    <meta name="keywords" content="Free Fire, Esports, RAVI ESPORTS, Gaming, Guild, Tournament">
+    <meta name="author" content="RAVI ESPORTS">
+    
+    <!-- Open Graph Meta Tags (for social sharing) -->
+    <meta property="og:title" content="RAVI ESPORTS">
+    <meta property="og:description" content="Born To Rush. Built To Win.">
+    <meta property="og:type" content="website">
+    
+    <title>RAVI ESPORTS | Born To Rush. Built To Win.</title>
+    
+    <!-- Favicon (replace with your logo later) -->
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+    <!-- ============================================
+         PARTICLE BACKGROUND CONTAINER
+    ============================================= -->
+    <div id="particles-container"></div>
+
+    <!-- ============================================
+         LOADING SCREEN
+    ============================================= -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-logo">🔥</div>
+            <div class="loader-text">RAVI ESPORTS</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         NAVIGATION BAR
+    ============================================= -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#home" class="nav-logo">
+                <img src="" alt="RAVI ESPORTS" id="nav-logo-img" onerror="this.style.display='none'">
+                <span class="logo-text">RAVI ESPORTS</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#teams" class="nav-link">Teams</a></li>
+                <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#recruit" class="nav-link nav-btn">Join Us</a></li>
+            </ul>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         MOBILE MENU SIDEBAR
+    ============================================= -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <span class="logo-text">RAVI ESPORTS</span>
+            <div class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-nav-link">Home</a></li>
+            <li><a href="#about" class="mobile-nav-link">About</a></li>
+            <li><a href="#teams" class="mobile-nav-link">Teams</a></li>
+            <li><a href="#achievements" class="mobile-nav-link">Achievements</a></li>
+            <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+            <li><a href="#recruit" class="mobile-nav-link mobile-nav-btn">Join Us</a></li>
+        </ul>
+        <div class="mobile-menu-socials">
+            <a href="#" id="mobile-discord"><i class="fab fa-discord"></i></a>
+            <a href="#" id="mobile-youtube"><i class="fab fa-youtube"></i></a>
+            <a href="#" id="mobile-instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+
+    <!-- ============================================
+         HERO SECTION
+    ============================================= -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <!-- Guild Logo -->
+            <div class="hero-logo">
+                <img src="" alt="RAVI ESPORTS Logo" id="hero-logo-img" onerror="this.parentElement.innerHTML='<div class=\'hero-logo-placeholder\'>🔥</div>'">
+            </div>
+            
+            <!-- Guild Name -->
+            <h1 class="hero-title">
+                <span class="title-line">RAVI</span>
+                <span class="title-line accent">ESPORTS</span>
+            </h1>
+            
+            <!-- Tagline -->
+            <p class="hero-tagline" id="hero-tagline">Born To Rush. Built To Win.</p>
+            
+            <!-- CTA Buttons -->
+            <div class="hero-buttons">
+                <a href="#recruit" class="btn btn-primary">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Join Our Guild</span>
+                </a>
+                <a href="#teams" class="btn btn-secondary">
+                    <i class="fas fa-users"></i>
+                    <span>Meet The Squad</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT SECTION
+    ============================================= -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">About <span class="accent">Us</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="about-content">
+                <!-- About Image/Video -->
+                <div class="about-image">
+                    <img src="" alt="RAVI ESPORTS Team" id="about-banner-img" onerror="this.src='https://placehold.co/600x400/1a1a1a/ff4500?text=RAVI+ESPORTS'">
+                    <div class="about-image-border"></div>
+                </div>
+                
+                <!-- About Text -->
+                <div class="about-text">
+                    <h3 class="about-heading">We Are <span class="accent">RAVI ESPORTS</span></h3>
+                    <p class="about-description" id="about-description">
+                        We are RAVI ESPORTS, a passionate Free Fire guild dedicated to dominating every match. Our squad combines skill, strategy, and teamwork to achieve victory.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-crosshairs"></i>
+                            <span>Precision Gaming</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-users"></i>
+                            <span>Team Synergy</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-trophy"></i>
+                            <span>Victory Driven</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         STATS COUNTER SECTION
+    ============================================= -->
+    <section id="stats" class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <!-- Stat 1: Total Kills -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-skull-crossbones"></i>
+                    </div>
+                    <div class="stat-number" data-target="0" id="stat-kills">0</div>
+                    <div class="stat-label">Total Kills</div>
+                </div>
+                
+                <!-- Stat 2: Total Wins -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="stat-number" data-target="0" id="stat-wins">0</div>
+                    <div class="stat-label">Matches Won</div>
+                </div>
+                
+                <!-- Stat 3: Members -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="stat-number" data-target="0" id="stat-members">0</div>
+                    <div class="stat-label">Squad Members</div>
+                </div>
+                
+                <!-- Stat 4: Trophies -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="stat-number" data-target="0" id="stat-trophies">0</div>
+                    <div class="stat-label">Trophies Won</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TEAMS SECTION
+    ============================================= -->
+    <section id="teams" class="teams-section">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">Our <span class="accent">Squads</span></h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Meet the warriors who dominate the battleground</p>
+            </div>
+            
+            <!-- Team Tabs -->
+            <div class="team-tabs" id="team-tabs">
+                <!-- Tabs will be populated by JavaScript -->
+            </div>
+            
+            <!-- Players Grid -->
+            <div class="players-grid" id="players-grid">
+                <!-- Player cards will be populated by JavaScript -->
+                <div class="loading-placeholder">
+                    <div class="spinner"></div>
+                    <p>Loading players...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ACHIEVEMENTS SECTION
+    ============================================= -->
+    <section id="achievements" class="achievements-section">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">Our <span class="accent">Achievements</span></h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Trophies and victories that define our legacy</p>
+            </div>
+            
+            <!-- Achievements List -->
+            <div class="achievements-grid" id="achievements-grid">
+                <!-- Achievements will be populated by JavaScript -->
+                <div class="loading-placeholder">
+                    <div class="spinner"></div>
+                    <p>Loading achievements...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         GALLERY SECTION
+    ============================================= -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">Our <span class="accent">Gallery</span></h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Epic moments and booyah memories</p>
+            </div>
+            
+            <!-- Gallery Filter -->
+            <div class="gallery-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="image">Screenshots</button>
+                <button class="filter-btn" data-filter="video">Videos</button>
+            </div>
+            
+            <!-- Gallery Grid -->
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery items will be populated by JavaScript -->
+                <div class="loading-placeholder">
+                    <div class="spinner"></div>
+                    <p>Loading gallery...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         RECRUITMENT SECTION
+    ============================================= -->
+    <section id="recruit" class="recruit-section">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h2 class="section-title">Join <span class="accent">Our Guild</span></h2>
+                <div class="section-divider"></div>
+                <p class="section-subtitle">Think you have what it takes? Apply now!</p>
+            </div>
+            
+            <div class="recruit-content">
+                <!-- Requirements -->
+                <div class="recruit-info">
+                    <h3 class="recruit-heading">Requirements</h3>
+                    <ul class="requirements-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Minimum Rank: Platinum</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>K/D Ratio: 2.0+</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Active Discord User</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Team Player Attitude</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Available for Scrims</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="recruit-socials">
+                        <p>Connect with us:</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" id="recruit-discord" target="_blank" title="Discord">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                            <a href="#" class="social-link" id="recruit-whatsapp" target="_blank" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Application Form -->
+                <div class="recruit-form-container">
+                    <form id="recruit-form" class="recruit-form">
+                        <div class="form-group">
+                            <label for="applicant-name">Your Name</label>
+                            <input type="text" id="applicant-name" name="name" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicant-uid">Free Fire UID</label>
+                            <input type="text" id="applicant-uid" name="uid" placeholder="Enter your UID" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="applicant-rank">Current Rank</label>
+                                <select id="applicant-rank" name="rank" required>
+                                    <option value="" disabled selected>Select Rank</option>
+                                    <option value="Bronze">Bronze</option>
+                                    <option value="Silver">Silver</option>
+                                    <option value="Gold">Gold</option>
+                                    <option value="Platinum">Platinum</option>
+                                    <option value="Diamond">Diamond</option>
+                                    <option value="Heroic">Heroic</option>
+                                    <option value="Grandmaster">Grandmaster</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="applicant-role">Preferred Role</label>
+                                <select id="applicant-role" name="role" required>
+                                    <option value="" disabled selected>Select Role</option>
+                                    <option value="IGL">IGL (Leader)</option>
+                                    <option value="Rusher">Rusher</option>
+                                    <option value="Sniper">Sniper</option>
+                                    <option value="Nader">Nader</option>
+                                    <option value="Support">Support</option>
+                                    <option value="Fragger">Fragger</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicant-kd">K/D Ratio</label>
+                            <input type="number" id="applicant-kd" name="kd_ratio" placeholder="e.g., 3.5" step="0.1" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicant-discord">Discord ID</label>
+                            <input type="text" id="applicant-discord" name="discord_id" placeholder="e.g., username#1234" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="applicant-reason">Why do you want to join?</label>
+                            <textarea id="applicant-reason" name="reason" placeholder="Tell us about yourself and why you want to join RAVI ESPORTS..." rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Submit Application</span>
+                        </button>
+                    </form>
+                    
+                    <!-- Success Message (hidden by default) -->
+                    <div class="form-success" id="form-success">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Application Submitted!</h3>
+                        <p>Thank you for applying to RAVI ESPORTS. We will review your application and contact you via Discord.</p>
+                        <button class="btn btn-secondary" id="reset-form">Submit Another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SOCIAL CONNECT SECTION
+    ============================================= -->
+    <section id="socials" class="socials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Connect <span class="accent">With Us</span></h2>
+                <div class="section-divider"></div>
+            </div>
+            
+            <div class="socials-grid">
+                <a href="#" class="social-card" id="social-discord" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    <span>Discord</span>
+                </a>
+                <a href="#" class="social-card" id="social-youtube" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube</span>
+                </a>
+                <a href="#" class="social-card" id="social-instagram" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="social-card" id="social-facebook" target="_blank">
+                    <i class="fab fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="#" class="social-card" id="social-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+    ============================================= -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Footer Logo & Info -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-text">RAVI ESPORTS</span>
+                    </div>
+                    <p class="footer-tagline">Born To Rush. Built To Win.</p>
+                    <p class="footer-description">
+                        Dominating the Free Fire battleground with skill, strategy, and unbreakable teamwork.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#teams">Teams</a></li>
+                        <li><a href="#achievements">Achievements</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#recruit">Join Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div class="footer-contact">
+                    <h4>Get In Touch</h4>
+                    <ul>
+                        <li>
+                            <i class="fab fa-discord"></i>
+                            <a href="#" id="footer-discord">Join Discord</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="#" id="footer-whatsapp">WhatsApp Group</a>
+                        </li>
+                        <li>
+                            <i class="fab fa-instagram"></i>
+                            <a href="#" id="footer-instagram">Follow on Instagram</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2024</span> RAVI ESPORTS. All Rights Reserved.</p>
+                <p>Made with 🔥 for Free Fire</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         LIGHTBOX (for gallery images)
+    ============================================= -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightbox-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-img">
+        </div>
+        <div class="lightbox-nav">
+            <button class="lightbox-prev" id="lightbox-prev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-next" id="lightbox-next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================
+         BACK TO TOP BUTTON
+    ============================================= -->
+    <button class="back-to-top" id="back-to-top" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ============================================
+         SCRIPTS
+    ============================================= -->
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Supabase Configuration -->
+    <script src="./config/supabase.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="./script.js"></script>
+
+</body>
+</html>
