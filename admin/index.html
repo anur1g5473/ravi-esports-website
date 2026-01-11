@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | RAVI ESPORTS</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body class="login-page">
+    
+    <!-- Particles Background -->
+    <div id="particles-container"></div>
+    
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-box">
+            <!-- Logo -->
+            <div class="login-logo">
+                <span class="fire-icon">🔥</span>
+                <h1>RAVI ESPORTS</h1>
+                <p>Admin Panel</p>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <button type="button" class="toggle-password" id="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <!-- Error Message -->
+                <div class="error-message" id="error-message"></div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn-login" id="login-btn">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <!-- Back to Website -->
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Back to Website
+            </a>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../config/supabase.js"></script>
+    <script>
+        // Check if already logged in
+        async function checkAuth() {
+            const { data: { session } } = await window.supabaseClient.auth.getSession();
+            if (session) {
+                window.location.href = './dashboard.html';
+            }
+        }
+        checkAuth();
+        
+        // Toggle password visibility
+        document.getElementById('toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+        
+        // Login form submission
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const loginBtn = document.getElementById('login-btn');
+            
+            // Clear error
+            errorMessage.textContent = '';
+            errorMessage.classList.remove('show');
+            
+            // Show loading
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            
+            try {
+                const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
+                // Success - redirect to dashboard
+                window.location.href = './dashboard.html';
+                
+            } catch (error) {
+                errorMessage.textContent = error.message || 'Login failed. Please try again.';
+                errorMessage.classList.add('show');
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<span>Login</span> <i class="fas fa-arrow-right"></i>';
+            }
+        });
+        
+        // Simple particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 10}s;
+                    animation-duration: ${Math.random() * 10 + 10}s;
+                `;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>

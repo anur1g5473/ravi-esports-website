@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | RAVI ESPORTS Admin</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+    
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+    
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="admin-layout">
+        
+        <!-- ============================================
+             SIDEBAR
+        ============================================= -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">🔥 RAVI ESPORTS</div>
+                <div class="subtitle">Admin Panel</div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-item active" data-section="overview">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </div>
+                <div class="nav-item" data-section="teams">
+                    <i class="fas fa-users"></i>
+                    <span>Teams</span>
+                </div>
+                <div class="nav-item" data-section="players">
+                    <i class="fas fa-user-ninja"></i>
+                    <span>Players</span>
+                </div>
+                <div class="nav-item" data-section="achievements">
+                    <i class="fas fa-trophy"></i>
+                    <span>Achievements</span>
+                </div>
+                <div class="nav-item" data-section="gallery">
+                    <i class="fas fa-images"></i>
+                    <span>Gallery</span>
+                </div>
+                <div class="nav-item" data-section="requests">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Join Requests</span>
+                    <span class="badge" id="requests-badge">0</span>
+                </div>
+                <div class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- ============================================
+             MAIN CONTENT
+        ============================================= -->
+        <main class="main-content">
+            
+            <!-- ============================================
+                 OVERVIEW SECTION
+            ============================================= -->
+            <section class="content-section active" id="section-overview">
+                <div class="top-bar">
+                    <h1 class="page-title">Welcome to <span>Dashboard</span></h1>
+                </div>
+                
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="overview-teams">0</h3>
+                            <p>Teams</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-ninja"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="overview-players">0</h3>
+                            <p>Players</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="overview-achievements">0</h3>
+                            <p>Achievements</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="overview-requests">0</h3>
+                            <p>Pending Requests</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Requests -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock"></i> Recent Join Requests</h3>
+                        <button class="btn btn-secondary btn-sm" onclick="showSection('requests')">
+                            View All
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table" id="recent-requests-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>UID</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-requests-body">
+                                    <tr>
+                                        <td colspan="5" class="loading">
+                                            <div class="spinner"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================
+                 TEAMS SECTION
+            ============================================= -->
+            <section class="content-section" id="section-teams">
+                <div class="top-bar">
+                    <h1 class="page-title">Manage <span>Teams</span></h1>
+                    <div class="top-bar-actions">
+                        <button class="btn btn-primary" onclick="openModal('team-modal')">
+                            <i class="fas fa-plus"></i>
+                            Add Team
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Team Name</th>
+                                        <th>Players</th>
+                                        <th>Created</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teams-table-body">
+                                    <tr>
+                                        <td colspan="4" class="loading">
+                                            <div class="spinner"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================
+                 PLAYERS SECTION
+            ============================================= -->
+            <section class="content-section" id="section-players">
+                <div class="top-bar">
+                    <h1 class="page-title">Manage <span>Players</span></h1>
+                    <div class="top-bar-actions">
+                        <button class="btn btn-primary" onclick="openPlayerModal()">
+                            <i class="fas fa-plus"></i>
+                            Add Player
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Player</th>
+                                        <th>UID</th>
+                                        <th>Team</th>
+                                        <th>Role</th>
+                                        <th>K/D</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="players-table-body">
+                                    <tr>
+                                        <td colspan="6" class="loading">
+                                            <div class="spinner"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================
+                 ACHIEVEMENTS SECTION
+            ============================================= -->
+            <section class="content-section" id="section-achievements">
+                <div class="top-bar">
+                    <h1 class="page-title">Manage <span>Achievements</span></h1>
+                    <div class="top-bar-actions">
+                        <button class="btn btn-primary" onclick="openModal('achievement-modal')">
+                            <i class="fas fa-plus"></i>
+                            Add Achievement
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Position</th>
+                                        <th>Year</th>
+                                        <th>Prize</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="achievements-table-body">
+                                    <tr>
+                                        <td colspan="5" class="loading">
+                                            <div class="spinner"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================
+                 GALLERY SECTION
+            ============================================= -->
+            <section class="content-section" id="section-gallery">
+                <div class="top-bar">
+                    <h1 class="page-title">Manage <span>Gallery</span></h1>
+                    <div class="top-bar-actions">
+                        <button class="btn btn-primary" onclick="openModal('gallery-modal')">
+                            <i class="fas fa-plus"></i>
+                            Add Image/Video
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Preview</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Date Added</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="gallery-table-body">
+                                    <tr>
+                                        <td colspan="5" class="loading">
+                                            <div class="spinner"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================
+                 JOIN REQUESTS SECTION
+            ============================================= -->
+            <section class="content-section" id="section-requests">
+                <div class="top-bar">
+                    <h1 class="page-title">Join <span>Requests</span></h1>
+                </div>
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>UID</th>
+                                        <th>Rank</th>
+                                        <th>Role</th>
+                                        <th>K/D</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="requests-table-body">
+                                    <tr>
+                                        <td colspan="7" class="loading">
+                                            <div class="spinner"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ============================================
+                 SETTINGS SECTION
+            ============================================= -->
+            <section class="content-section" id="section-settings">
+                <div class="top-bar">
+                    <h1 class="page-title">Guild <span>Settings</span></h1>
+                </div>
+                
+                <form id="settings-form">
+                    <!-- Basic Info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="guild-name">Guild Name</label>
+                                    <input type="text" id="guild-name" value="RAVI ESPORTS">
+                                </div>
+                                <div class="form-group">
+                                    <label for="guild-tagline">Tagline</label>
+                                    <input type="text" id="guild-tagline" value="Born To Rush. Built To Win.">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="guild-about">About Text</label>
+                                <textarea id="guild-about" rows="4">We are RAVI ESPORTS, a passionate Free Fire guild dedicated to dominating every match.</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Images -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-image"></i> Images</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Guild Logo</label>
+                                    <div class="file-upload" id="logo-upload">
+                                        <input type="file" accept="image/*" id="logo-file" onchange="previewImage(this, 'logo-preview')">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload logo</p>
+                                        <div class="preview" id="logo-preview"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Banner Image</label>
+                                    <div class="file-upload" id="banner-upload">
+                                        <input type="file" accept="image/*" id="banner-file" onchange="previewImage(this, 'banner-preview')">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to upload banner</p>
+                                        <div class="preview" id="banner-preview"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Stats Display</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="total-kills">Total Kills</label>
+                                    <input type="number" id="total-kills" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="total-wins">Total Wins</label>
+                                    <input type="number" id="total-wins" value="0">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="total-members">Total Members</label>
+                                    <input type="number" id="total-members" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="total-trophies">Total Trophies</label>
+                                    <input type="number" id="total-trophies" value="0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-share-alt"></i> Social Links</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="discord-link">
+                                        <i class="fab fa-discord" style="color: #5865F2;"></i> Discord
+                                    </label>
+                                    <input type="url" id="discord-link" placeholder="https://discord.gg/...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="youtube-link">
+                                        <i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube
+                                    </label>
+                                    <input type="url" id="youtube-link" placeholder="https://youtube.com/...">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="instagram-link">
+                                        <i class="fab fa-instagram" style="color: #E1306C;"></i> Instagram
+                                    </label>
+                                    <input type="url" id="instagram-link" placeholder="https://instagram.com/...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="facebook-link">
+                                        <i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook
+                                    </label>
+                                    <input type="url" id="facebook-link" placeholder="https://facebook.com/...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="whatsapp-link">
+                                    <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp
+                                </label>
+                                <input type="url" id="whatsapp-link" placeholder="https://chat.whatsapp.com/...">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Save Button -->
+                    <button type="submit" class="btn btn-primary" id="save-settings-btn">
+                        <i class="fas fa-save"></i>
+                        Save Settings
+                    </button>
+                </form>
+            </section>
+            
+        </main>
+    </div>
+    
+    <!-- ============================================
+         MODALS
+    ============================================= -->
+    
+    <!-- Team Modal -->
+    <div class="modal-overlay" id="team-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="team-modal-title">Add New Team</h3>
+                <button class="modal-close" onclick="closeModal('team-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="team-form">
+                    <input type="hidden" id="team-id">
+                    <div class="form-group">
+                        <label for="team-name">Team Name</label>
+                        <input type="text" id="team-name" placeholder="Enter team name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="team-order">Display Order</label>
+                        <input type="number" id="team-order" placeholder="1" value="1">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('team-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveTeam()">Save Team</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Player Modal -->
+    <div class="modal-overlay" id="player-modal">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="player-modal-title">Add New Player</h3>
+                <button class="modal-close" onclick="closeModal('player-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="player-form">
+                    <input type="hidden" id="player-id">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="player-name">Player Name</label>
+                            <input type="text" id="player-name" placeholder="In-game name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="player-uid">Free Fire UID</label>
+                            <input type="text" id="player-uid" placeholder="UID">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="player-team">Team</label>
+                            <select id="player-team" required>
+                                <option value="">Select Team</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="player-role">Role</label>
+                            <select id="player-role" required>
+                                <option value="">Select Role</option>
+                                <option value="IGL">IGL (Leader)</option>
+                                <option value="Rusher">Rusher</option>
+                                <option value="Sniper">Sniper</option>
+                                <option value="Nader">Nader</option>
+                                <option value="Support">Support</option>
+                                <option value="Fragger">Fragger</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="player-kd">K/D Ratio</label>
+                            <input type="number" id="player-kd" placeholder="3.5" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="player-kills">Total Kills</label>
+                            <input type="number" id="player-kills" placeholder="5000">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="player-rank">Current Rank</label>
+                            <select id="player-rank">
+                                <option value="">Select Rank</option>
+                                <option value="Bronze">Bronze</option>
+                                <option value="Silver">Silver</option>
+                                <option value="Gold">Gold</option>
+                                <option value="Platinum">Platinum</option>
+                                <option value="Diamond">Diamond</option>
+                                <option value="Heroic">Heroic</option>
+                                <option value="Grandmaster">Grandmaster</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="player-instagram">Instagram URL</label>
+                            <input type="url" id="player-instagram" placeholder="https://instagram.com/...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Player Photo</label>
+                        <div class="file-upload">
+                            <input type="file" accept="image/*" id="player-photo" onchange="previewImage(this, 'player-photo-preview')">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload photo</p>
+                            <div class="preview" id="player-photo-preview"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('player-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="savePlayer()">Save Player</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Achievement Modal -->
+    <div class="modal-overlay" id="achievement-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="achievement-modal-title">Add Achievement</h3>
+                <button class="modal-close" onclick="closeModal('achievement-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="achievement-form">
+                    <input type="hidden" id="achievement-id">
+                    <div class="form-group">
+                        <label for="achievement-title">Tournament/Event Name</label>
+                        <input type="text" id="achievement-title" placeholder="Tournament name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="achievement-position">Position</label>
+                            <select id="achievement-position" required>
+                                <option value="">Select Position</option>
+                                <option value="1st Place">1st Place</option>
+                                <option value="2nd Place">2nd Place</option>
+                                <option value="3rd Place">3rd Place</option>
+                                <option value="Winner">Winner</option>
+                                <option value="Champion">Champion</option>
+                                <option value="Finalist">Finalist</option>
+                                <option value="Top 5">Top 5</option>
+                                <option value="Top 10">Top 10</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="achievement-year">Year</label>
+                            <input type="number" id="achievement-year" placeholder="2024" value="2024">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="achievement-prize">Prize (Optional)</label>
+                        <input type="text" id="achievement-prize" placeholder="₹10,000">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('achievement-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveAchievement()">Save Achievement</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Gallery Modal -->
+    <div class="modal-overlay" id="gallery-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="gallery-modal-title">Add to Gallery</h3>
+                <button class="modal-close" onclick="closeModal('gallery-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="gallery-form">
+                    <input type="hidden" id="gallery-id">
+                    <div class="form-group">
+                        <label for="gallery-title">Title (Optional)</label>
+                        <input type="text" id="gallery-title" placeholder="Image/Video title">
+                    </div>
+                    <div class="form-group">
+                        <label for="gallery-type">Type</label>
+                        <select id="gallery-type" onchange="toggleGalleryUpload()">
+                            <option value="image">Image</option>
+                            <option value="video">Video (YouTube/URL)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="gallery-file-group">
+                        <label>Upload Image</label>
+                        <div class="file-upload">
+                            <input type="file" accept="image/*" id="gallery-file" onchange="previewImage(this, 'gallery-preview')">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload image</p>
+                            <div class="preview" id="gallery-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="gallery-url-group" style="display: none;">
+                        <label for="gallery-url">Video URL</label>
+                        <input type="url" id="gallery-url" placeholder="https://youtube.com/...">
+                    </div>
+                    <div class="form-group" id="gallery-thumb-group" style="display: none;">
+                        <label for="gallery-thumbnail">Thumbnail URL (Optional)</label>
+                        <input type="url" id="gallery-thumbnail" placeholder="Thumbnail image URL">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('gallery-modal')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveGalleryItem()">Save</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Request Detail Modal -->
+    <div class="modal-overlay" id="request-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Request Details</h3>
+                <button class="modal-close" onclick="closeModal('request-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="request-details">
+                <!-- Will be populated dynamically -->
+            </div>
+            <div class="modal-footer" id="request-actions">
+                <!-- Will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../config/supabase.js"></script>
+    <script src="./admin.js"></script>
+</body>
+</html>
