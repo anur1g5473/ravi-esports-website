@@ -12,6 +12,7 @@ const adminState = {
     gallery: [],
     requests: [],
     settings: null,
+    members: [],
     currentSection: 'overview'
 };
 
@@ -155,6 +156,7 @@ async function fetchAllData() {
         fetchAchievements(),
         fetchGallery(),
         fetchRequests(),
+        fetchAdminMembers(),
         fetchSettings()
     ]);
     updateOverviewStats();
@@ -899,6 +901,9 @@ function viewRequest(id) {
 
 async function updateRequestStatus(id, status) {
     try {
+        const request = adminState.requests.find(r => r.id === id);
+        
+        // Update request status
         const { error } = await window.supabaseClient
             .from('join_requests')
             .update({ 
@@ -909,7 +914,30 @@ async function updateRequestStatus(id, status) {
         
         if (error) throw error;
         
-        showToast(`Request ${status} successfully`);
+        // If accepted, add to members table
+        if (status === 'accepted' && request) {
+            const { error: memberError } = await window.supabaseClient
+                .from('members')
+                .insert([{
+                    name: request.name,
+                    uid: request.uid,
+                    kd_ratio: request.kd_ratio,
+                    current_rank: request.rank,
+                    role: request.role,
+                    discord_id: request.discord_id,
+                    joined_at: new Date().toISOString()
+                }]);
+            
+            if (memberError) {
+                console.error('Error adding member:', memberError);
+            } else {
+                showToast('Request accepted & member added!');
+                await fetchAdminMembers();
+            }
+        } else {
+            showToast(`Request ${status} successfully`);
+        }
+        
         await fetchRequests();
         updateOverviewStats();
     } catch (error) {
@@ -1000,6 +1028,150 @@ async function saveSettings(e) {
     } finally {
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-save"></i> Save Settings';
+    }
+}
+// ============================================
+// MEMBERS CRUD
+// ============================================
+async function fetchAdminMembers() {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from('members')
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        adminState.members = data || [];
+        renderMembersAdminTable();
+    } catch (error) {
+        console.error('Error fetching members:', error);
+    }
+}
+
+function renderMembersAdminTable() {
+    const tbody = document.getElementById('members-admin-table-body');
+    if (!tbody) return;
+    
+    if (adminState.members.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="empty-state">
+                        <i class="fas fa-user-friends"></i>
+                        <h4>No members yet</h4>
+                        <p>Add members or accept join requests</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    tbody.innerHTML = adminState.members.map(member => {
+        const photoUrl = member.photo_url || 'https://placehold.co/40x40/1a1a1a/ff4500?text=' + member.name.charAt(0);
+        const roleClass = (member.role || '').toLowerCase();
+        
+        return `
+            <tr>
+                <td>
+                    <div class="player-info">
+                        <img src="${photoUrl}" alt="${member.name}" class="player-avatar" 
+                             onerror="this.src='https://placehold.co/40x40/1a1a1a/ff4500?text=${member.name.charAt(0)}'">
+                        <span class="player-name">${member.name}</span>
+                    </div>
+                </td>
+                <td>${member.uid || 'N/A'}</td>
+                <td>${member.kd_ratio || '0.0'}</td>
+                <td>${member.current_rank || 'N/A'}</td>
+                <td>${member.role ? `<span class="role-badge ${roleClass}">${member.role}</span>` : 'N/A'}</td>
+                <td class="actions">
+                    <button class="btn btn-secondary btn-sm" onclick="editMember('${member.id}')">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteMember('${member.id}')">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+async function saveMember() {
+    const id = document.getElementById('member-id').value;
+    
+    const memberData = {
+        name: document.getElementById('member-name').value,
+        uid: document.getElementById('member-uid').value,
+        kd_ratio: parseFloat(document.getElementById('member-kd').value) || null,
+        current_rank: document.getElementById('member-rank').value,
+        role: document.getElementById('member-role').value,
+        discord_id: document.getElementById('member-discord').value
+    };
+    
+    if (!memberData.name) {
+        showToast('Name is required', 'error');
+        return;
+    }
+    
+    try {
+        if (id) {
+            const { error } = await window.supabaseClient
+                .from('members')
+                .update(memberData)
+                .eq('id', id);
+            
+            if (error) throw error;
+            showToast('Member updated successfully');
+        } else {
+            const { error } = await window.supabaseClient
+                .from('members')
+                .insert([memberData]);
+            
+            if (error) throw error;
+            showToast('Member added successfully');
+        }
+        
+        closeModal('member-modal');
+        await fetchAdminMembers();
+    } catch (error) {
+        console.error('Error saving member:', error);
+        showToast('Error saving member', 'error');
+    }
+}
+
+function editMember(id) {
+    const member = adminState.members.find(m => m.id === id);
+    if (!member) return;
+    
+    document.getElementById('member-id').value = member.id;
+    document.getElementById('member-name').value = member.name || '';
+    document.getElementById('member-uid').value = member.uid || '';
+    document.getElementById('member-kd').value = member.kd_ratio || '';
+    document.getElementById('member-rank').value = member.current_rank || '';
+    document.getElementById('member-role').value = member.role || '';
+    document.getElementById('member-discord').value = member.discord_id || '';
+    document.getElementById('member-modal-title').textContent = 'Edit Member';
+    
+    openModal('member-modal');
+}
+
+async function deleteMember(id) {
+    if (!confirm('Are you sure you want to remove this member?')) return;
+    
+    try {
+        const { error } = await window.supabaseClient
+            .from('members')
+            .delete()
+            .eq('id', id);
+        
+        if (error) throw error;
+        
+        showToast('Member removed successfully');
+        await fetchAdminMembers();
+    } catch (error) {
+        console.error('Error deleting member:', error);
+        showToast('Error removing member', 'error');
     }
 }
 

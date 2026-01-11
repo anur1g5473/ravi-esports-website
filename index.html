@@ -67,6 +67,7 @@
                 <li><a href="#achievements" class="nav-link">Achievements</a></li>
                 <li><a href="#gallery" class="nav-link">Gallery</a></li>
                 <li><a href="#recruit" class="nav-link nav-btn">Join Us</a></li>
+                <li><a href="#members" class="nav-link">Members</a></li>
             </ul>
             
             <!-- Mobile Menu Toggle -->
@@ -95,6 +96,7 @@
             <li><a href="#achievements" class="mobile-nav-link">Achievements</a></li>
             <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
             <li><a href="#recruit" class="mobile-nav-link mobile-nav-btn">Join Us</a></li>
+            <li><a href="#members" class="mobile-nav-link">Members</a></li>
         </ul>
         <div class="mobile-menu-socials">
             <a href="#" id="mobile-discord"><i class="fab fa-discord"></i></a>
@@ -313,6 +315,54 @@
             </div>
         </div>
     </section>
+
+<!-- ============================================
+     GUILD MEMBERS SECTION
+============================================= -->
+<section id="members" class="members-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h2 class="section-title">Guild <span class="accent">Members</span></h2>
+            <div class="section-divider"></div>
+            <p class="section-subtitle">Our proud guild family</p>
+        </div>
+        
+        <!-- Search Box -->
+        <div class="members-search">
+            <input type="text" id="member-search" placeholder="Search by name or UID..." onkeyup="searchMembers()">
+            <i class="fas fa-search"></i>
+        </div>
+        
+        <!-- Members Table -->
+        <div class="members-table-container">
+            <table class="members-table" id="members-table">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>UID</th>
+                        <th>K/D Ratio</th>
+                        <th>Rank</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody id="members-table-body">
+                    <tr>
+                        <td colspan="5" class="loading-placeholder">
+                            <div class="spinner"></div>
+                            <p>Loading members...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Members Count -->
+        <div class="members-count">
+            Total Members: <span id="total-members-count">0</span>
+        </div>
+    </div>
+</section>
 
     <!-- ============================================
          RECRUITMENT SECTION

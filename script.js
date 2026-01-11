@@ -67,6 +67,11 @@ const DOM = {
     // Gallery
     galleryGrid: document.getElementById('gallery-grid'),
     filterBtns: document.querySelectorAll('.filter-btn'),
+
+    // Members
+membersTableBody: document.getElementById('members-table-body'),
+memberSearch: document.getElementById('member-search'),
+totalMembersCount: document.getElementById('total-members-count'),
     
     // Lightbox
     lightbox: document.getElementById('lightbox'),
@@ -105,6 +110,7 @@ const DOM = {
     // Footer
     currentYear: document.getElementById('current-year'),
     navLogoImg: document.getElementById('nav-logo-img')
+
 };
 
 // App State
@@ -118,6 +124,8 @@ const state = {
     currentGalleryFilter: 'all',
     currentLightboxIndex: 0,
     filteredGallery: [],
+    members: [],
+filteredMembers: [],
     statsAnimated: false
 };
 
@@ -467,6 +475,98 @@ async function fetchGallery() {
         renderNoGallery();
     }
 }
+async function fetchMembers() {
+    try {
+        const { data, error } = await window.supabaseClient
+            .from('members')
+            .select('*')
+            .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        
+        state.members = data || [];
+        state.filteredMembers = data || [];
+        renderMembers();
+        
+    } catch (error) {
+        console.error('Error fetching members:', error);
+        renderNoMembers();
+    }
+}
+
+function renderMembers() {
+    const tbody = DOM.membersTableBody;
+    if (!tbody) return;
+    
+    if (state.filteredMembers.length === 0) {
+        renderNoMembers();
+        return;
+    }
+    
+    tbody.innerHTML = state.filteredMembers.map(member => {
+        const photoUrl = member.photo_url || 'https://placehold.co/45x45/1a1a1a/ff4500?text=' + member.name.charAt(0);
+        const roleClass = (member.role || '').toLowerCase();
+        
+        return `
+            <tr class="fade-in-up">
+                <td>
+                    <div class="member-info">
+                        <img src="${photoUrl}" alt="${member.name}" class="member-avatar" 
+                             onerror="this.src='https://placehold.co/45x45/1a1a1a/ff4500?text=${member.name.charAt(0)}'">
+                        <span class="member-name">${member.name}</span>
+                    </div>
+                </td>
+                <td><span class="member-uid">${member.uid || 'N/A'}</span></td>
+                <td><span class="member-kd">${member.kd_ratio || '0.0'}</span></td>
+                <td><span class="member-rank">${member.current_rank || 'N/A'}</span></td>
+                <td>${member.role ? `<span class="member-role ${roleClass}">${member.role}</span>` : 'N/A'}</td>
+            </tr>
+        `;
+    }).join('');
+    
+    // Update count
+    if (DOM.totalMembersCount) {
+        DOM.totalMembersCount.textContent = state.members.length;
+    }
+}
+
+function renderNoMembers() {
+    const tbody = DOM.membersTableBody;
+    if (!tbody) return;
+    
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="5">
+                <div class="no-members">
+                    <i class="fas fa-users"></i>
+                    <p>No members yet. Be the first to join!</p>
+                </div>
+            </td>
+        </tr>
+    `;
+    
+    if (DOM.totalMembersCount) {
+        DOM.totalMembersCount.textContent = '0';
+    }
+}
+
+function searchMembers() {
+    const searchTerm = DOM.memberSearch.value.toLowerCase().trim();
+    
+    if (!searchTerm) {
+        state.filteredMembers = state.members;
+    } else {
+        state.filteredMembers = state.members.filter(member => 
+            member.name.toLowerCase().includes(searchTerm) ||
+            (member.uid && member.uid.toLowerCase().includes(searchTerm))
+        );
+    }
+    
+    renderMembers();
+}
+
+// Make searchMembers available globally
+window.searchMembers = searchMembers;
 
 async function submitJoinRequest(formData) {
     try {
@@ -1060,7 +1160,8 @@ async function initApp() {
             fetchGuildSettings(),
             fetchTeams(),
             fetchAchievements(),
-            fetchGallery()
+            fetchGallery(),
+            fetchMembers()
         ]);
         console.log('✅ All data loaded successfully!');
     } catch (error) {

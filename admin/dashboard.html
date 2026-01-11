@@ -58,6 +58,10 @@
                     <i class="fas fa-images"></i>
                     <span>Gallery</span>
                 </div>
+                <div class="nav-item" data-section="members">
+    <i class="fas fa-user-friends"></i>
+    <span>Members</span>
+</div>
                 <div class="nav-item" data-section="requests">
                     <i class="fas fa-user-plus"></i>
                     <span>Join Requests</span>
@@ -322,6 +326,48 @@
                     </div>
                 </div>
             </section>
+
+<!-- ============================================
+     MEMBERS SECTION
+============================================= -->
+<section class="content-section" id="section-members">
+    <div class="top-bar">
+        <h1 class="page-title">Manage <span>Members</span></h1>
+        <div class="top-bar-actions">
+            <button class="btn btn-primary" onclick="openModal('member-modal')">
+                <i class="fas fa-plus"></i>
+                Add Member
+            </button>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Player</th>
+                            <th>UID</th>
+                            <th>K/D</th>
+                            <th>Rank</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-admin-table-body">
+                        <tr>
+                            <td colspan="6" class="loading">
+                                <div class="spinner"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
             
             <!-- ============================================
                  JOIN REQUESTS SECTION
@@ -740,6 +786,73 @@
             </div>
         </div>
     </div>
+    <!-- Member Modal -->
+<div class="modal-overlay" id="member-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="member-modal-title">Add New Member</h3>
+            <button class="modal-close" onclick="closeModal('member-modal')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="member-form">
+                <input type="hidden" id="member-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member-name">Player Name</label>
+                        <input type="text" id="member-name" placeholder="In-game name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-uid">Free Fire UID</label>
+                        <input type="text" id="member-uid" placeholder="UID">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member-kd">K/D Ratio</label>
+                        <input type="number" id="member-kd" placeholder="3.5" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="member-rank">Current Rank</label>
+                        <select id="member-rank">
+                            <option value="">Select Rank</option>
+                            <option value="Bronze">Bronze</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Gold">Gold</option>
+                            <option value="Platinum">Platinum</option>
+                            <option value="Diamond">Diamond</option>
+                            <option value="Heroic">Heroic</option>
+                            <option value="Grandmaster">Grandmaster</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="member-role">Role</label>
+                        <select id="member-role">
+                            <option value="">Select Role</option>
+                            <option value="IGL">IGL (Leader)</option>
+                            <option value="Rusher">Rusher</option>
+                            <option value="Sniper">Sniper</option>
+                            <option value="Nader">Nader</option>
+                            <option value="Support">Support</option>
+                            <option value="Fragger">Fragger</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-discord">Discord ID</label>
+                        <input type="text" id="member-discord" placeholder="username#1234">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeModal('member-modal')">Cancel</button>
+            <button class="btn btn-primary" onclick="saveMember()">Save Member</button>
+        </div>
+    </div>
+</div>
     
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

@@ -2144,3 +2144,189 @@ p {
         padding: 2rem;
     }
 }
+/* ============================================
+   GUILD MEMBERS SECTION
+   ============================================ */
+.members-section {
+    padding: var(--space-4xl) 0;
+    background: var(--color-bg-primary);
+}
+
+.members-search {
+    max-width: 400px;
+    margin: 0 auto var(--space-2xl);
+    position: relative;
+}
+
+.members-search input {
+    width: 100%;
+    padding: var(--space-md) var(--space-xl);
+    padding-left: 50px;
+    background: var(--color-bg-tertiary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    transition: var(--transition-normal);
+}
+
+.members-search input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
+}
+
+.members-search input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.members-search i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-primary);
+    font-size: var(--text-lg);
+}
+
+.members-table-container {
+    overflow-x: auto;
+    background: var(--color-bg-secondary);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+}
+
+.members-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.members-table thead {
+    background: var(--gradient-primary);
+}
+
+.members-table th {
+    padding: var(--space-lg);
+    text-align: left;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-primary);
+}
+
+.members-table td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--color-text-secondary);
+    font-size: var(--text-base);
+}
+
+.members-table tbody tr {
+    transition: var(--transition-normal);
+}
+
+.members-table tbody tr:hover {
+    background: rgba(255, 69, 0, 0.1);
+}
+
+.members-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.member-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.member-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: var(--border-radius-full);
+    object-fit: cover;
+    border: 2px solid var(--color-primary);
+}
+
+.member-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.member-uid {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.member-kd {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-secondary);
+}
+
+.member-rank {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-bg-tertiary);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+.member-role {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+}
+
+.member-role.igl { background: var(--color-role-igl); color: #000; }
+.member-role.rusher { background: var(--color-role-rusher); }
+.member-role.sniper { background: var(--color-role-sniper); }
+.member-role.nader { background: var(--color-role-nader); }
+.member-role.support { background: var(--color-role-support); color: #000; }
+.member-role.fragger { background: var(--color-role-fragger); }
+
+.members-count {
+    text-align: center;
+    margin-top: var(--space-xl);
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+}
+
+.members-count span {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.no-members {
+    text-align: center;
+    padding: var(--space-3xl);
+    color: var(--color-text-muted);
+}
+
+.no-members i {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-primary);
+}
+
+/* Responsive Members Table */
+@media (max-width: 768px) {
+    .members-table th,
+    .members-table td {
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--text-sm);
+    }
+    
+    .member-avatar {
+        width: 35px;
+        height: 35px;
+    }
+}
