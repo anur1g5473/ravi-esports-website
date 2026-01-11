@@ -1,119 +1,58 @@
 /* ============================================
-   RAVI ESPORTS CHATBOT
-   Born To Rush. Built To Win.
+   RAVI ESPORTS AI CHATBOT
+   Powered by Google Gemini
    ============================================ */
 
 // ============================================
-// CHATBOT KNOWLEDGE BASE
+// GEMINI API CONFIGURATION
 // ============================================
-const chatbotKnowledge = {
-    // Guild Information
-    guild: {
-        name: "RAVI ESPORTS",
-        tagline: "Born To Rush. Built To Win.",
-        founded: "2022",
-        game: "Free Fire",
-        teams: ["RAVI ESPORTS", "RE PRO"],
-        description: "We are RAVI ESPORTS, a passionate Free Fire guild dedicated to dominating every match. Our squad combines skill, strategy, and teamwork to achieve victory."
-    },
-    
-    // Free Fire Characters
-    characters: {
-        best_rushers: ["Alok", "K", "Skyler", "Dimitri", "Homer"],
-        best_supports: ["Moco", "Clu", "Rafael", "Kapella"],
-        best_snipers: ["Laura", "Rafael", "Maro"],
-        meta: "Alok, Chrono, K, and Homer are currently in the meta. Alok's healing ability is great for team fights, while K provides EP conversion for survival."
-    },
-    
-    // Free Fire Weapons
-    weapons: {
-        best_ar: ["M4A1", "AK", "SCAR", "Groza", "Parafal"],
-        best_smg: ["MP40", "Vector", "UMP", "P90"],
-        best_sniper: ["AWM", "Kar98k", "M82B", "SVD"],
-        best_shotgun: ["M1014", "M1887", "SPAS12"],
-        tips: "For close range, use MP40 or M1887. For medium range, M4A1 or AK is best. For long range, AWM one-shots with headshot."
-    },
-    
-    // Game Tips
-    tips: {
-        landing: "Land at edges of hot drops to loot safely, then push. Popular spots: Clock Tower, Bimasakti, Factory.",
-        combat: "Always use headphones, pre-fire corners, and use gloo walls during fights. High ground advantage is crucial.",
-        ranked: "Play with a consistent squad, communicate callouts, and always have a balanced team composition.",
-        sensitivity: "For beginners: General 80-100, Red Dot 70-90, Scope 50-70. Adjust based on your device.",
-        movement: "Use prone, crouch spam, and zig-zag movement to avoid headshots. Jump shots help in close combat."
-    },
-    
-    // Responses Database
-    responses: {
-        // Greetings
-        greetings: [
-            "Hey! Welcome to RAVI ESPORTS! 🔥 How can I help you?",
-            "Hello warrior! 🎮 What would you like to know?",
-            "Hi there! Ready to dominate the battleground? 💪",
-            "Welcome! I'm the RAVI ESPORTS bot. Ask me anything!"
-        ],
-        
-        // Guild Info
-        about_guild: [
-            `🔥 **RAVI ESPORTS**\n\n"Born To Rush. Built To Win."\n\nWe are a passionate Free Fire guild with multiple competitive teams. We focus on teamwork, skill development, and winning tournaments!\n\n👥 Teams: RAVI ESPORTS, RE PRO\n🎮 Game: Free Fire\n🏆 Active in tournaments`,
-        ],
-        
-        // How to Join
-        join_guild: [
-            `🎮 **How to Join RAVI ESPORTS:**\n\n1️⃣ Go to the "Join Us" section on our website\n2️⃣ Fill the application form\n3️⃣ Submit your Free Fire UID\n4️⃣ Wait for our team to review\n5️⃣ Get accepted and join our Discord!\n\n📋 Requirements:\n• Minimum Rank: Platinum\n• K/D Ratio: 2.0+\n• Active on Discord\n• Team player attitude`,
-        ],
-        
-        // Best Characters
-        best_characters: [
-            `🎭 **Best Free Fire Characters (2024):**\n\n🔥 **Rushers:**\n• Alok - Healing + Speed boost\n• K - EP conversion master\n• Skyler - Destroys gloo walls\n• Homer - Drone damage\n\n🛡️ **Support:**\n• Moco - Enemy tracking\n• Kapella - Healing boost\n\n🎯 **Snipers:**\n• Laura - Accuracy boost\n• Rafael - Silent sniping`,
-        ],
-        
-        // Best Weapons
-        best_weapons: [
-            `🔫 **Best Weapons in Free Fire:**\n\n**Assault Rifles:**\n• M4A1 - All-rounder\n• AK - High damage\n• Groza - Best AR (airdrop)\n\n**SMGs:**\n• MP40 - Fastest fire rate\n• Vector - Close combat king\n\n**Snipers:**\n• AWM - One-shot headshot\n• Kar98k - Fast bolt action\n\n**Shotguns:**\n• M1887 - Deadly at close range`,
-        ],
-        
-        // Game Tips
-        game_tips: [
-            `💡 **Pro Tips for Free Fire:**\n\n🎯 **Combat:**\n• Always aim for headshots\n• Use gloo walls in fights\n• Pre-fire corners\n\n🏃 **Movement:**\n• Crouch spam during fights\n• Zig-zag while running\n• Use prone strategically\n\n🎮 **General:**\n• Land smart, not hot\n• Loot fast, move faster\n• Communication is key!`,
-        ],
-        
-        // Sensitivity Settings
-        sensitivity: [
-            `⚙️ **Recommended Sensitivity Settings:**\n\n**Beginners:**\n• General: 80-100\n• Red Dot: 70-90\n• 2x Scope: 60-80\n• 4x Scope: 50-70\n• AWM: 40-60\n\n**Pro Players:**\n• General: 90-100\n• Red Dot: 80-100\n• Higher for faster flicks\n\n📱 Adjust based on your device and playstyle!`,
-        ],
-        
-        // Landing Spots
-        landing_spots: [
-            `📍 **Best Landing Spots (Bermuda):**\n\n🔥 **Hot Drops (High Risk/Reward):**\n• Clock Tower\n• Bimasakti Strip\n• Factory\n\n⚡ **Medium Risk:**\n• Mars Electric\n• Pochinok\n• Mill\n\n🛡️ **Safe Drops:**\n• Rim Nam Village\n• Sentosa\n• Cape Town\n\n💡 Land at edges of hot drops for best results!`,
-        ],
-        
-        // Rank Push
-        rank_tips: [
-            `🏆 **Rank Push Tips:**\n\n1️⃣ Play with a consistent squad\n2️⃣ Communicate using callouts\n3️⃣ Have balanced team roles:\n   • 1 IGL (Leader)\n   • 2 Rushers\n   • 1 Support\n\n4️⃣ Don't hot drop in ranked\n5️⃣ Survival > Kills for points\n6️⃣ Play during low-traffic hours\n7️⃣ Use meta characters`,
-        ],
-        
-        // Default/Unknown
-        default: [
-            "I'm not sure about that. Try asking about:\n• RAVI ESPORTS guild\n• How to join\n• Best characters\n• Weapon tips\n• Game strategies",
-            "Hmm, I don't have info on that. Ask me about Free Fire tips, our guild, or how to join!",
-            "I'm still learning! Try asking about characters, weapons, or our guild. 🎮"
-        ],
-        
-        // Fun responses
-        booyah: [
-            "🎉 BOOYAH! That's the spirit! RAVI ESPORTS always wins! 🔥",
-            "BOOYAH! 🏆 Born To Rush. Built To Win!",
-            "🔥 BOOYAH! Another victory for the squad!"
-        ],
-        
-        thanks: [
-            "You're welcome! Good luck on the battleground! 🎮",
-            "Anytime! May your headshots be accurate! 🎯",
-            "Happy to help! See you at the top! 🏆"
-        ]
-    }
-};
+const GEMINI_API_KEY = 'YAIzaSyAU0irppZNz9ZzAVeStchbmu-lSv07Vf7o'; // Replace with your key
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+
+// ============================================
+// SYSTEM CONTEXT FOR AI
+// ============================================
+const SYSTEM_CONTEXT = `
+You are the official AI assistant for RAVI ESPORTS, a professional Free Fire esports guild.
+
+ABOUT RAVI ESPORTS:
+- Guild Name: RAVI ESPORTS
+- Tagline: "Born To Rush. Built To Win."
+- Game: Free Fire (Garena Free Fire)
+- Teams: RAVI ESPORTS (Main Squad), RE PRO (Secondary Squad)
+- Founded: 2022
+- Total Members: 21+
+- Focus: Competitive tournaments, scrims, and ranked matches
+- Requirements to join: Minimum Platinum rank, 2.0+ K/D ratio, active on Discord
+
+HOW TO JOIN:
+1. Visit the website's "Join Us" section
+2. Fill the application form with Free Fire UID
+3. Wait for admin review
+4. Get accepted and join Discord server
+
+YOUR PERSONALITY:
+- You are friendly, enthusiastic, and passionate about gaming
+- You use gaming slang like "Booyah!", "GG", "clutch", "squad wipe"
+- You add relevant emojis to make responses engaging
+- You're knowledgeable about Free Fire meta, characters, weapons, and strategies
+- You always promote RAVI ESPORTS positively
+- Keep responses concise but helpful (max 150 words unless detailed info is needed)
+
+FREE FIRE KNOWLEDGE:
+- Best Characters (2024): Alok, K, Skyler, Homer, Dimitri, Chrono, Moco
+- Best Weapons: M4A1, AK, Groza, MP40, M1887, AWM, Kar98k
+- Game Modes: Battle Royale, Clash Squad, Ranked
+- Maps: Bermuda, Kalahari, Purgatory, Alpine
+- Popular landing spots: Clock Tower, Bimasakti, Factory, Pochinok
+
+RULES:
+- Always stay in character as RAVI ESPORTS bot
+- If asked about other games, you can briefly answer but redirect to Free Fire
+- Never share harmful, inappropriate, or offensive content
+- If you don't know something, say so honestly
+- Encourage users to join RAVI ESPORTS guild
+`;
 
 // ============================================
 // CHATBOT DOM ELEMENTS
@@ -131,23 +70,26 @@ const chatElements = {
 };
 
 // ============================================
-// CHATBOT STATE
+// CHAT HISTORY FOR CONTEXT
 // ============================================
+let conversationHistory = [];
 let chatState = {
     isOpen: false,
-    hasGreeted: false
+    hasGreeted: false,
+    isProcessing: false
 };
 
 // ============================================
 // HELPER FUNCTIONS
 // ============================================
-function getRandomResponse(responses) {
-    return responses[Math.floor(Math.random() * responses.length)];
-}
-
 function formatMessage(text) {
     // Convert **text** to bold
-    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Convert *text* to italic
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Convert newlines to <br>
+    text = text.replace(/\n/g, '<br>');
+    return text;
 }
 
 function addMessage(text, sender = 'bot') {
@@ -177,96 +119,167 @@ function hideTyping() {
 }
 
 // ============================================
-// MESSAGE PROCESSING
+// GEMINI API CALL
 // ============================================
-function processMessage(userMessage) {
-    const msg = userMessage.toLowerCase().trim();
+async function callGeminiAPI(userMessage) {
+    // Add user message to history
+    conversationHistory.push({
+        role: "user",
+        parts: [{ text: userMessage }]
+    });
     
-    // Greetings
-    if (msg.match(/^(hi|hello|hey|hii|hiii|hola|yo|sup)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.greetings);
+    // Build the request body
+    const requestBody = {
+        contents: [
+            {
+                role: "user",
+                parts: [{ text: SYSTEM_CONTEXT + "\n\nNow respond to this message from a user:\n" + userMessage }]
+            }
+        ],
+        generationConfig: {
+            temperature: 0.8,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 500,
+        },
+        safetySettings: [
+            {
+                category: "HARM_CATEGORY_HARASSMENT",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+                category: "HARM_CATEGORY_HATE_SPEECH",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+                category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            },
+            {
+                category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                threshold: "BLOCK_MEDIUM_AND_ABOVE"
+            }
+        ]
+    };
+    
+    try {
+        const response = await fetch(GEMINI_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Extract response text
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+            const botResponse = data.candidates[0].content.parts[0].text;
+            
+            // Add bot response to history
+            conversationHistory.push({
+                role: "model",
+                parts: [{ text: botResponse }]
+            });
+            
+            return botResponse;
+        } else {
+            throw new Error('Invalid response format');
+        }
+        
+    } catch (error) {
+        console.error('Gemini API Error:', error);
+        return getFallbackResponse(userMessage);
+    }
+}
+
+// ============================================
+// FALLBACK RESPONSES (If API fails)
+// ============================================
+function getFallbackResponse(message) {
+    const msg = message.toLowerCase();
+    
+    if (msg.match(/^(hi|hello|hey)/)) {
+        return "Hey there! 🔥 Welcome to RAVI ESPORTS! I'm having some connection issues, but I'm still here to help. Ask me about our guild, Free Fire tips, or how to join!";
     }
     
-    // Thanks
-    if (msg.match(/(thank|thanks|thx|thnx|ty|tysm)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.thanks);
+    if (msg.match(/(join|apply|member)/)) {
+        return "🎮 To join RAVI ESPORTS:\n\n1. Go to 'Join Us' section\n2. Fill the application form\n3. Enter your Free Fire UID\n4. Wait for admin review\n\nRequirements: Platinum+ rank, 2.0+ K/D";
     }
     
-    // Booyah
-    if (msg.match(/booyah/)) {
-        return getRandomResponse(chatbotKnowledge.responses.booyah);
+    if (msg.match(/(about|ravi|guild|esports)/)) {
+        return "🔥 **RAVI ESPORTS**\n\n'Born To Rush. Built To Win.'\n\nWe're a competitive Free Fire guild with 21+ members across 2 teams. We dominate ranked matches and tournaments!";
     }
     
-    // About Guild
-    if (msg.match(/(about|what is|tell me about|who is|info).*(ravi|guild|esports|clan|team)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.about_guild);
+    if (msg.match(/(character|hero|alok|chrono)/)) {
+        return "🎭 Best Free Fire Characters:\n\n• Alok - Healing + Speed\n• K - EP Master\n• Skyler - Gloo wall destroyer\n• Homer - Drone damage\n• Moco - Enemy tracking";
     }
     
-    // How to Join
-    if (msg.match(/(how|want|can i|where).*(join|apply|register|signup|sign up|member)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.join_guild);
+    if (msg.match(/(weapon|gun|best)/)) {
+        return "🔫 Top Weapons:\n\n• AR: M4A1, AK, Groza\n• SMG: MP40, Vector\n• Sniper: AWM, Kar98k\n• Shotgun: M1887, M1014";
     }
     
-    // Best Characters
-    if (msg.match(/(best|top|good|meta|op).*(character|hero|ability|skill)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.best_characters);
+    if (msg.match(/(tip|trick|help|improve)/)) {
+        return "💡 Quick Tips:\n\n• Always aim for headshots\n• Use gloo walls in fights\n• Land smart, not just hot\n• Communicate with your squad\n• Practice in training mode!";
     }
     
-    // Best Weapons
-    if (msg.match(/(best|top|good|meta|op).*(weapon|gun|rifle|smg|sniper|ar|shotgun)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.best_weapons);
-    }
-    
-    // Sensitivity
-    if (msg.match(/(sensitivity|sens|setting|control|dpi)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.sensitivity);
-    }
-    
-    // Landing Spots
-    if (msg.match(/(land|drop|where to land|spot|location|map)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.landing_spots);
-    }
-    
-    // Rank Tips
-    if (msg.match(/(rank|push|grandmaster|heroic|tier|ranked)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.rank_tips);
-    }
-    
-    // Game Tips
-    if (msg.match(/(tip|trick|help|how to|guide|strategy|improve|pro)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.game_tips);
-    }
-    
-    // Specific character questions
-    if (msg.match(/(alok|chrono|k character|skyler|moco|dimitri|homer)/)) {
-        return getRandomResponse(chatbotKnowledge.responses.best_characters);
-    }
-    
-    // Default response
-    return getRandomResponse(chatbotKnowledge.responses.default);
+    return "I'm having trouble connecting right now 😅 But you can ask me about RAVI ESPORTS, how to join, Free Fire characters, weapons, or tips! Or just say 'Booyah!' 🔥";
 }
 
 // ============================================
 // SEND MESSAGE
 // ============================================
-function sendMessage(message = null) {
+async function sendMessage(message = null) {
+    if (chatState.isProcessing) return;
+    
     const userMessage = message || chatElements.input.value.trim();
     
     if (!userMessage) return;
     
-    // Add user message
+    // Add user message to chat
     addMessage(userMessage, 'user');
     chatElements.input.value = '';
+    chatState.isProcessing = true;
     
     // Show typing indicator
     showTyping();
     
-    // Process and respond after delay
-    setTimeout(() => {
+    try {
+        // Call Gemini API
+        const response = await callGeminiAPI(userMessage);
+        
+        // Hide typing and show response
         hideTyping();
-        const response = processMessage(userMessage);
         addMessage(response, 'bot');
-    }, 1000 + Math.random() * 500);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        hideTyping();
+        addMessage(getFallbackResponse(userMessage), 'bot');
+    }
+    
+    chatState.isProcessing = false;
+}
+
+// ============================================
+// GREETING MESSAGE
+// ============================================
+async function sendGreeting() {
+    showTyping();
+    
+    try {
+        const greeting = await callGeminiAPI("A new user just opened the chat. Give them a warm, brief welcome to RAVI ESPORTS and ask how you can help them today.");
+        hideTyping();
+        addMessage(greeting, 'bot');
+    } catch (error) {
+        hideTyping();
+        addMessage("Hey there! 🔥 Welcome to RAVI ESPORTS - Born To Rush, Built To Win!\n\nI'm your AI assistant. Ask me anything about our guild, Free Fire tips, or how to join! 🎮", 'bot');
+    }
 }
 
 // ============================================
@@ -281,7 +294,7 @@ function openChatbot() {
     if (!chatState.hasGreeted) {
         chatState.hasGreeted = true;
         setTimeout(() => {
-            addMessage(getRandomResponse(chatbotKnowledge.responses.greetings), 'bot');
+            sendGreeting();
         }, 500);
     }
     
@@ -306,6 +319,12 @@ function toggleChatbot() {
 // EVENT LISTENERS
 // ============================================
 function initChatbot() {
+    // Check if elements exist
+    if (!chatElements.toggle) {
+        console.log('Chatbot elements not found');
+        return;
+    }
+    
     // Toggle button
     chatElements.toggle.addEventListener('click', toggleChatbot);
     
@@ -317,7 +336,10 @@ function initChatbot() {
     
     // Enter key
     chatElements.input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
     });
     
     // Quick replies
@@ -328,7 +350,14 @@ function initChatbot() {
         });
     });
     
-    console.log('🤖 RAVI ESPORTS Chatbot initialized!');
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && chatState.isOpen) {
+            closeChatbot();
+        }
+    });
+    
+    console.log('🤖 RAVI ESPORTS AI Chatbot (Gemini) initialized!');
 }
 
 // Initialize when DOM is ready
